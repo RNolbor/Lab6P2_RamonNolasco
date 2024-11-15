@@ -80,7 +80,7 @@ public class Lab6P2_RamonNolasco {
 
         
         System.out.println("Matriz inicial (P   Q):");
-        imprimirMatriz(proposiciones);
+        imprimirTabla(proposiciones);
 
         
         System.out.print("Ingrese la operacion logica (pvq para OR, p^q para AND): ");
@@ -92,7 +92,7 @@ public class Lab6P2_RamonNolasco {
         
         if (resultado != null) {
             System.out.println("Matriz resultado:");
-            imprimirMatriz(resultado);
+            imprimirTabla(resultado);
         } else {
             System.out.println("Operacion invalida.");
         }
@@ -100,7 +100,7 @@ public class Lab6P2_RamonNolasco {
        
     }
 
-    public static void imprimirMatriz(boolean[][] matriz) {
+    public static void imprimirTabla(boolean[][] matriz) {
         for (boolean[] fila : matriz) {
             for (boolean valor : fila) {
                 System.out.print((valor ? 1 : 0) + "\t");
@@ -166,11 +166,9 @@ public class Lab6P2_RamonNolasco {
     
     public static void imprimirTriangulo(int[][] matriz, int n) {
         for (int i = 0; i < n; i++) {
-            // Espaciado inicial para centrar el triángulo
             for (int k = 0; k < n - i - 1; k++) {
                 System.out.print("  ");
             }
-            // Imprimir valores de la fila
             for (int j = 0; j <= i; j++) {
                 System.out.print(matriz[i][j] + "   ");
             }
@@ -183,10 +181,77 @@ public class Lab6P2_RamonNolasco {
     
     
     public static void FilasColumnas (Scanner scanner){
+        Random random = new Random();
+        System.out.print("Ingrese el tamaño de la matriz: ");
+        int tamaño = scanner.nextInt();
         
+
+    // Crear y llenar la matriz
+        int[][] matriz = new int[tamaño][tamaño];
+        System.out.println("Ingrese los valores de la matriz:");
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                matriz[i][j] = random.nextInt(10);
+            }
+        }
+
+        System.out.println("Matriz original:");
+        imprimirMatriz(matriz, tamaño);
         
+        String comando;
+        scanner.nextLine();
         
+        do{
+            
+            System.out.print("Ingrese el comando de intercambio - (f2-f1 , c2-c1) o (salir) para salir del programa): ");
+            comando = scanner.nextLine();
+
+            if (comando.equalsIgnoreCase("salir")) {
+                break;
+            }
+            if (comando.length() == 5 && comando.charAt(0) == 'f' && comando.charAt(3) == 'f') {
+                int fila1 = (comando.charAt(1) - '0') - 1; 
+                int fila2 = (comando.charAt(4) - '0') - 1; 
+
+                if (fila1 >= 0 && fila1 < tamaño && fila2 >= 0 && fila2 < tamaño) {
+                    intercambiarFilas(matriz, fila1, fila2);
+                    System.out.println("Matriz después de intercambiar filas " + (fila1 + 1) + " y " + (fila2 + 1) + ":");
+                    imprimirMatriz(matriz, tamaño);
+                } else {
+                    System.out.println("Índices de filas inválidos. Intente nuevamente.");
+                }
+            }
+            
+            
+            
+            
+        }while(true);
         
     }
+    
+    
+    public static void imprimirMatriz(int[][] matriz, int tamaño) {
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void intercambiarColumnas(int[][] matriz, int columna1, int columna2) {
+        for (int i = 0; i < matriz.length; i++){
+            int temp = matriz[i][columna1];
+            matriz[i][columna1] = matriz[i][columna2];
+            matriz[i][columna2] = temp;
+        }
+    }
+    
+    public static void intercambiarFilas(int[][] matriz, int fila1, int fila2) {
+        int[] temp = matriz[fila1];
+        matriz[fila1] = matriz[fila2];
+        matriz[fila2] = temp;
+    }
+    
     
 }
