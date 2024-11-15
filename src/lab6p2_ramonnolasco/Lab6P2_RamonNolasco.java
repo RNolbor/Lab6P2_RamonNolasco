@@ -37,13 +37,14 @@ public class Lab6P2_RamonNolasco {
                 
                 case 1 -> {
                     
-                    ejecutarTablasDeVerdad(scanner);
+                    TablasDeVerdad(scanner);
                
                 }
                 
                 case 2 -> {
                     
-                    
+                    Triangulo(scanner);
+                    // "se deforma de los bordes cuando el tamaño es alto"
                     
                 }
                 
@@ -61,7 +62,10 @@ public class Lab6P2_RamonNolasco {
     }
     
     
-    public static void ejecutarTablasDeVerdad(Scanner scanner) {
+    // METODOS PARA LAS TABLAS DE VERDAD
+    
+    
+    public static void TablasDeVerdad(Scanner scanner) {
         Random random = new Random();
 
         System.out.print("Ingrese el numero de filas para la tabla de verdad: ");
@@ -75,7 +79,7 @@ public class Lab6P2_RamonNolasco {
         }
 
         
-        System.out.println("Matriz inicial (P y Q):");
+        System.out.println("Matriz inicial (P   Q):");
         imprimirMatriz(proposiciones);
 
         
@@ -90,7 +94,7 @@ public class Lab6P2_RamonNolasco {
             System.out.println("Matriz resultado:");
             imprimirMatriz(resultado);
         } else {
-            System.out.println("Operación invalida.");
+            System.out.println("Operacion invalida.");
         }
 
        
@@ -129,6 +133,60 @@ public class Lab6P2_RamonNolasco {
     }
 
     
+    // METODOS PARA EL TRIANGULO
     
+    
+    public static void Triangulo (Scanner scanner){
+        
+        System.out.println("Ingrese el tamaño del triangulo: ");
+        int tamaño = scanner.nextInt();
+        
+        int[][] triangulo = crearTriangulo(tamaño);
+        
+        imprimirTriangulo(triangulo, tamaño);
+    }
+    
+    public static int[][] crearTriangulo(int tamaño){
+      
+        int[][] matrizTA = new int [tamaño][tamaño];
+        
+        for (int i = 0 ; i < tamaño ; i++){
+            matrizTA[i][0] = 1;
+            matrizTA[i][i] =1;
+        }
+        
+        for (int i = 2; i < tamaño ; i++){
+            
+            for (int j= 1 ; j < i; j ++){
+                 matrizTA[i][j] = matrizTA[i - 1][j - 1] + matrizTA[i - 1][j];
+            }    
+        } 
+        return matrizTA;
+    }
+    
+    public static void imprimirTriangulo(int[][] matriz, int n) {
+        for (int i = 0; i < n; i++) {
+            // Espaciado inicial para centrar el triángulo
+            for (int k = 0; k < n - i - 1; k++) {
+                System.out.print("  ");
+            }
+            // Imprimir valores de la fila
+            for (int j = 0; j <= i; j++) {
+                System.out.print(matriz[i][j] + "   ");
+            }
+            System.out.println();
+        }
+    }
+    
+    
+    // METODOS PARA EL INTERCAMBIO DE FILAS
+    
+    
+    public static void FilasColumnas (Scanner scanner){
+        
+        
+        
+        
+    }
     
 }
